@@ -1,0 +1,67 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+#tabl {
+    border: 1px solid black;
+}
+
+/* Additions below */
+#controls {
+    margin: 20px 0;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+#table-container {
+    margin: 20px 0;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 14px;
+}
+
+th,
+td {
+    border: 1px solid #333;
+    padding: 6px 8px;
+    text-align: left;
+}
+
+th {
+    background: #eee;
+    cursor: pointer;
+    user-select: none;
+}
+
+th.sort-asc::after {
+    content: " ▲";
+}
+
+th.sort-desc::after {
+    content: " ▼";
+}
+
+img.hero-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+#pagination {
+    margin: 20px 0;
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+#pagination button {
+    padding: 4px 8px;
+    border: 1px solid #333;
+    background: #fff;
+    cursor: pointer;
+}
