@@ -9,20 +9,36 @@
 </head>
 
 <body>
-    <table id="table">
-        <tr>
-            <th>Icon</th>
-            <th>Name</th>
-            <th>Full Name</th>
-            <th>Powerstats</th>
-            <th>Race </th>
-            <th>Gender</th>
-            <th>Height</th>
-            <th>Weight</th>
-            <th>Place Of Birth</th>
-            <th>Alignmen</th>
-        </tr>
+    <input id="input" type="text" placeholder="Search by name..." />
+    <select name="select" id="diviPage">
+        <option value="all">all results</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+    </select>
+
+
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Icon</th>
+                <th>Name<button id="sort"> ↓</button></th>
+                <th>Full Name<button id="sort"> ↓</button></th>
+                <th>Powerstats<button id="sort"> ↓</button></th>
+                <th>Race<button id="sort"> ↓</button></th>
+                <th>Gender<button id="sort"> ↓</button></th>
+                <th>Height<button id="sort"> ↓</button></th>
+                <th>Weight<button id="sort"> ↓</button></th>
+                <th>Place Of Birth<button id="sort"> ↓</button></th>
+                <th>Alignment<button id="sort"> ↓</button></th>
+            </tr>
+        </thead>
+        <tbody id="table"></tbody>
     </table>
+    <div> <button id="r"> <- </button> <button id="l">-></button> </div>
+
     <script src="main.js"></script>
 </body>
 
