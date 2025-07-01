@@ -9,7 +9,11 @@ function loadData(heroes) {
     const sortBtn = document.getElementById('sort')
     const input = document.getElementById('input')
     const divi = document.getElementById('diviPage')
-    display(filteredHero)
+    let Hero = []
+    for (let i = 0; i <20; i++) {
+        Hero.push(filteredHero[i])
+    }
+    display(Hero)
     input.addEventListener("input", () => {
         const s = input.value.toLowerCase()
         filteredHero = hero.filter(h => h.name.toLowerCase().includes(s))
@@ -45,33 +49,43 @@ function loadData(heroes) {
     let sortherpob = [...filteredHero]
     sortherpob = sortPoB(sortherpob)
     let sortheralign = [...filteredHero]
-    sortheralign = sortAlin(sortheralign)
+    sortheralign = sortAlinm(sortheralign)
+    let cop = []
     buttons.forEach((button, index) => {
         button.addEventListener('click', () => {
 
+
             if (index == 0) {
                 display(sorthero.reverse())
+                cop = [...sorthero]
             }
             if (index == 1) {
                 display(sortheroPower.reverse())
+                cop = [...sortheroPower]
             }
             if (index == 2) {
                 display(sortheroraace.reverse())
+                cop = [...sortheroraace]
             }
             if (index == 3) {
                 display(sorthergender.reverse())
+                cop = [...sorthergender]
             }
             if (index == 4) {
                 display(sortherh.reverse())
+                cop = [...sortherh]
             }
             if (index == 5) {
                 display(sortherw.reverse())
+                cop = [...sortherw]
             }
             if (index == 6) {
                 display(sortherpob.reverse())
+                cop = [...sortherpob]
             }
             if (index == 7) {
                 display(sortheralign.reverse())
+                cop = [...sortheralign]
             }
         });
     });
@@ -80,14 +94,18 @@ function loadData(heroes) {
     const l = document.getElementById('l')
 
     divi.addEventListener('change', () => {
+        if (cop.length == 0) {
+            cop = [...filteredHero]
+
+        }
         if (divi.value == 'all') {
-            end = filteredHero.length
+            end = cop.length
         } else {
             end = divi.value
         }
         let Hero = []
         for (let i = start; i < end; i++) {
-            Hero.push(filteredHero[i])
+            Hero.push(cop[i])
         }
         display(Hero)
 
@@ -170,7 +188,6 @@ function display(heroList) {
     });
 }
 function sortfullName(array) {
-    console.log(array);
 
     return array.sort((a, b) => {
         if (a.biography.fullName < b.biography.fullName) {
@@ -200,7 +217,6 @@ function sortPower(array) {
 }
 function sortRace(array) {
     return array.sort((a, b) => {
-        console.log(a.appearance.race);
         if (a.appearance.race == null) {
             return -1
         }
@@ -226,10 +242,22 @@ function sortGender(array) {
 }
 function sorth(array) {
     return array.sort((a, b) => {
-        if (a.appearance.height[1] < b.appearance.height[1]) {
+        let ah = a.appearance.height[1]
+        let bh = b.appearance.height[1]
+        if (!ah) return 1;
+        if (!bh) return -1;
+        let [aw, aunit] = ah.split(' ');
+        let [bw, bunit] = bh.split(' ');
+        aw = parseFloat(aw);
+        bw = parseFloat(bw);
+        if (aunit === 'meters') aw *= 100;
+        if (bunit === 'meters') bw *= 100;
+        if (isNaN(aw)) return 1;
+        if (isNaN(bw)) return -1;
+        if (aw < bw) {
             return -1;
         }
-        if (a.appearance.height[1] > b.appearance.height[1]) {
+        if (aw > bw) {
             return 1;
         }
         return 0;
@@ -237,10 +265,22 @@ function sorth(array) {
 }
 function sortw(array) {
     return array.sort((a, b) => {
-        if (a.appearance.weight[1] < b.appearance.weight[1]) {
+        let awt = a.appearance.weight[1]
+        let bwt = b.appearance.weight[1]
+        if (!awt) return 1;
+        if (!bwt) return -1;
+        let [aw, aunit] = awt.split(' ');
+        let [bw, bunit] = bwt.split(' ');
+        aw = parseFloat(aw);
+        bw = parseFloat(bw);
+        if (aunit === 'tons') aw *= 1000;
+        if (bunit === 'tons') bw *= 1000;
+        if (isNaN(aw)) return 1;
+        if (isNaN(bw)) return -1;
+        if (aw < bw) {
             return -1;
         }
-        if (a.appearance.weight[1] > b.appearance.weight[1]) {
+        if (aw > bw) {
             return 1;
         }
         return 0;
@@ -248,7 +288,7 @@ function sortw(array) {
 }
 function sortPoB(array) {
     return array.sort((a, b) => {
-        
+
         if (a.biography.placeOfBirth < b.biography.placeOfBirth) {
             return -1;
         }
@@ -258,6 +298,14 @@ function sortPoB(array) {
         return 0;
     })
 }
-function sortAlin() {
-
+function sortAlinm(array) {
+    return array.sort((a, b) => {
+        if (a.biography.alignment < b.biography.alignment) {
+            return -1;
+        }
+        if (a.biography.alignment > b.biography.alignment) {
+            return 1;
+        }
+        return 0;
+    })
 }

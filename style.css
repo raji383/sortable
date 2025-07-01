@@ -1,12 +1,104 @@
 * {
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
 }
 
-#table {
-    width: 100%;
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f7f8fa;
+    color: #222;
+    padding: 32px;
 }
-table, th, td {
-  border:1px solid black;
+
+input[type="text"] {
+    padding: 6px 10px;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    font-size: 15px;
+    width: 220px;
+    margin-right: 10px;
+}
+
+select {
+    padding: 6px 10px;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    font-size: 15px;
+    margin-bottom: 16px;
+    margin-right: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    margin-bottom: 18px;
+}
+
+th, td {
+    border: 1px solid #e0e0e0;
+    padding: 8px 10px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+th {
+    background: #f2f4f8;
+    font-weight: 600;
+    position: relative;
+    user-select: none;
+}
+
+th button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    margin-left: 4px;
+    color: #888;
+    transition: color 0.2s;
+    vertical-align: middle;
+}
+th button:hover {
+    color: #222;
+}
+
+tbody tr:nth-child(even) {
+    background: #f8fafc;
+}
+
+tbody tr:hover {
+    background: #e9f3ff;
+}
+
+
+
+button#r, button#l {
+    padding: 6px 14px;
+    margin: 8px 2px;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    background: #f2f4f8;
+    color: #333;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+button#r:hover, button#l:hover {
+    background: #dbeafe;
+    color: #111;
+}
+
+@media (max-width: 900px) {
+    table, thead, tbody, th, td, tr {
+        font-size: 13px;
+    }
+    input[type="text"], select {
+        width: 100%;
+        margin-bottom: 10px;
+    }
 }
 
