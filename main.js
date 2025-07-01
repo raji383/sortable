@@ -1,6 +1,6 @@
 let hero = []
 let filteredHero = []
-var start = 0, end, n = 0
+var start = 0, end
 
 fetch('https://rawcdn.githack.com/akabab/superhero-api/0.2.0/api/all.json').then(r => r.json()).then(loadData)
 function loadData(heroes) {
@@ -16,6 +16,7 @@ function loadData(heroes) {
         display(filteredHero)
     })
     let asc = true
+
     sortBtn.addEventListener('click', () => {
         filteredHero.reverse()
         asc = !asc
@@ -26,11 +27,60 @@ function loadData(heroes) {
         }
         display(filteredHero)
     })
+
+    const buttons = document.querySelectorAll('.sort');
+
+    let sorthero = [...filteredHero]
+    sorthero = sortfullName(sorthero)
+    let sortheroPower = [...filteredHero]
+    sortheroPower = sortPower(sortheroPower)
+    let sortheroraace = [...filteredHero]
+    sortheroraace = sortRace(sortheroraace)
+    let sorthergender = [...filteredHero]
+    sorthergender = sortGender(sorthergender)
+    let sortherh = [...filteredHero]
+    sortherh = sorth(sortherh)
+    let sortherw = [...filteredHero]
+    sortherw = sortw(sortherw)
+    let sortherpob = [...filteredHero]
+    sortherpob = sortPoB(sortherpob)
+    let sortheralign = [...filteredHero]
+    sortheralign = sortAlin(sortheralign)
+    buttons.forEach((button, index) => {
+        button.addEventListener('click', () => {
+
+            if (index == 0) {
+                display(sorthero.reverse())
+            }
+            if (index == 1) {
+                display(sortheroPower.reverse())
+            }
+            if (index == 2) {
+                display(sortheroraace.reverse())
+            }
+            if (index == 3) {
+                display(sorthergender.reverse())
+            }
+            if (index == 4) {
+                display(sortherh.reverse())
+            }
+            if (index == 5) {
+                display(sortherw.reverse())
+            }
+            if (index == 6) {
+                display(sortherpob.reverse())
+            }
+            if (index == 7) {
+                display(sortheralign.reverse())
+            }
+        });
+    });
+
     const r = document.getElementById('r')
     const l = document.getElementById('l')
 
     divi.addEventListener('change', () => {
-        if (end == 'all') {
+        if (divi.value == 'all') {
             end = filteredHero.length
         } else {
             end = divi.value
@@ -43,31 +93,30 @@ function loadData(heroes) {
 
     })
     r.addEventListener('click', () => {
-        n -= Number(end)
+        start -= Number(end)
         let Hero = []
-       
-        if (n < 0) {
-            n = 0
+
+        if (start < 0) {
+            start = 0
         }
-        if (n + Number(end) > filteredHero.length) {
-            n = filteredHero.length - Number(end)
+        if (start + Number(end) > filteredHero.length) {
+            start = filteredHero.length - Number(end)
         }
-        for (let i = n; i < n + Number(end); i++) {
+        for (let i = start; i < start + Number(end); i++) {
             Hero.push(filteredHero[i])
         }
         display(Hero)
     })
     l.addEventListener('click', () => {
-        n += Number(end)
+        start += Number(end)
         let Hero = []
-        if(n < 0) {
-            n = 0
+        if (start < 0) {
+            start = 0
         }
-        if (n + Number(end) > filteredHero.length) {
-            n = filteredHero.length - Number(end)
+        if (start + Number(end) > filteredHero.length) {
+            start = filteredHero.length - Number(end)
         }
-
-        for (let i = n; i < n + Number(end); i++) {
+        for (let i = start; i < start + Number(end); i++) {
             Hero.push(filteredHero[i])
         }
         display(Hero)
@@ -110,7 +159,7 @@ function display(heroList) {
             powers += `${stat}: ${element.powerstats[stat]} \n`
         }
 
-        power.textContent = powers
+        power.innerHTML = powers.replace(/\n/g, '<br>')
         race.textContent = element.appearance.race || "-"
         gender.textContent = element.appearance.gender || "-"
         height.textContent = element.appearance.height[1] || "-"
@@ -119,4 +168,96 @@ function display(heroList) {
         tr.append(icons, name, fname, power, race, gender, height, weight, pob, alignment)
         table.appendChild(tr)
     });
+}
+function sortfullName(array) {
+    console.log(array);
+
+    return array.sort((a, b) => {
+        if (a.biography.fullName < b.biography.fullName) {
+            return -1;
+        }
+        if (a.biography.fullName > b.biography.fullName) {
+            return 1;
+        }
+        return 0;
+    })
+
+
+}
+function sortPower(array) {
+    return array.sort((a, b) => {
+        if (a.powerstats.intelligence == null) {
+            return -1
+        }
+        if (a.powerstats.intelligence < b.powerstats.intelligence) {
+            return -1;
+        }
+        if (a.powerstats.intelligence > b.powerstats.intelligence) {
+            return 1;
+        }
+        return 0;
+    })
+}
+function sortRace(array) {
+    return array.sort((a, b) => {
+        console.log(a.appearance.race);
+        if (a.appearance.race == null) {
+            return -1
+        }
+        if (a.appearance.race < b.appearance.race) {
+            return -1;
+        }
+        if (a.appearance.race > b.appearance.race) {
+            return 1;
+        }
+        return 0;
+    })
+}
+function sortGender(array) {
+    return array.sort((a, b) => {
+        if (a.appearance.gender < b.appearance.gender) {
+            return -1;
+        }
+        if (a.appearance.gender > b.appearance.gender) {
+            return 1;
+        }
+        return 0;
+    })
+}
+function sorth(array) {
+    return array.sort((a, b) => {
+        if (a.appearance.height[1] < b.appearance.height[1]) {
+            return -1;
+        }
+        if (a.appearance.height[1] > b.appearance.height[1]) {
+            return 1;
+        }
+        return 0;
+    })
+}
+function sortw(array) {
+    return array.sort((a, b) => {
+        if (a.appearance.weight[1] < b.appearance.weight[1]) {
+            return -1;
+        }
+        if (a.appearance.weight[1] > b.appearance.weight[1]) {
+            return 1;
+        }
+        return 0;
+    })
+}
+function sortPoB(array) {
+    return array.sort((a, b) => {
+        
+        if (a.biography.placeOfBirth < b.biography.placeOfBirth) {
+            return -1;
+        }
+        if (a.biography.placeOfBirth > b.biography.placeOfBirth) {
+            return 1;
+        }
+        return 0;
+    })
+}
+function sortAlin() {
+
 }
